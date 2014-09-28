@@ -1,2 +1,2 @@
-timsmeet
+timsmeet app
 ========

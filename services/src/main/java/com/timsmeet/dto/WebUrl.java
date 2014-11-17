@@ -11,7 +11,7 @@ public class WebUrl {
 	private Integer displayIndex;
 	private String webUrlAddress;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -58,4 +58,48 @@ public class WebUrl {
 	public void setWebUrlAddress(String webUrlAddress) {
 		this.webUrlAddress = webUrlAddress;
 	}
+
+	public static final class Builder {
+		private final WebUrl webUrl = new WebUrl();
+
+		public Builder(ActivityStatus status) {
+			webUrl.setStatus(status);
+		}
+
+		public WebUrl build() {
+			return webUrl;
+		}
+
+		public Builder id(Long id) {
+			webUrl.setId(id);
+			return this;
+		}
+
+		public Builder lastModificationId(Long lastModificationId) {
+			webUrl.setLastModificationId(lastModificationId);
+			return this;
+		}
+
+		public Builder status(ActivityStatus status) {
+			webUrl.setStatus(status);
+			return this;
+		}
+
+		public Builder comment(String comment) {
+			webUrl.setComment(comment);
+			return this;
+		}
+
+		public Builder displayIndex(Integer displayIndex) {
+			webUrl.setDisplayIndex(displayIndex);
+			return this;
+		}
+
+		public Builder webUrlAddress(String webUrlAddress) {
+			webUrl.setWebUrlAddress(webUrlAddress);
+			return this;
+		}
+
+	}
+
 }

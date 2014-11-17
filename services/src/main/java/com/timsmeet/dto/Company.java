@@ -18,7 +18,6 @@ public class Company {
 	private List<ServiceType> serviceTypes;
 	private List<ServiceLocation> serviceLocations;
 
-
 	public Long getId() {
 		return id;
 	}
@@ -106,16 +105,15 @@ public class Company {
 	public void setServiceLocations(List<ServiceLocation> serviceLocations) {
 		this.serviceLocations = serviceLocations;
 	}
-	
-	
+
 	public final static class Builder {
 		private final Company company = new Company();
-		
+
 		public Builder(String companyName, ActivityStatus status) {
 			company.setName(companyName);
 			company.setStatus(status);
 		}
-		
+
 		public Company build() {
 			return company;
 		}

@@ -61,4 +61,46 @@ public class Contact {
 		this.emails = emails;
 	}
 
+	public static final class Builder {
+		private final Contact contact = new Contact();
+
+		public Builder(ActivityStatus status) {
+			contact.setStatus(status);
+		}
+
+		public Contact build() {
+			return contact;
+		}
+
+		public Builder id(Long id) {
+			contact.setId(id);
+			return this;
+		}
+
+		public Builder lastModificationId(Long lastModificationId) {
+			contact.setLastModificationId(lastModificationId);
+			return this;
+		}
+
+		public Builder status(ActivityStatus status) {
+			contact.setStatus(status);
+			return this;
+		}
+
+		public Builder phones(List<Phone> phones) {
+			contact.setPhones(phones);
+			return this;
+		}
+
+		public Builder webUrls(List<WebUrl> webUrls) {
+			contact.setWebUrls(webUrls);
+			return this;
+		}
+
+		public Builder emails(List<Email> emails) {
+			contact.setEmails(emails);
+			return this;
+		}
+	}
+
 }

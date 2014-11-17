@@ -56,4 +56,5 @@ public class CompanyServiceTest extends BaseServiceTest {
     Assert.assertNotNull("Should read working hours", entity.getWorkingHours());
     Assert.assertNull("Should not read vacations", entity.getVacations());
   }
+
 }

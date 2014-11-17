@@ -5,26 +5,26 @@ import java.sql.Timestamp;
 
 public class Field {
 
-	private long id;
-	private long lastModificationId;
+	private Long id;
+	private Long lastModificationId;
 	private BigDecimal valueDecimal;
-	private long valueInteger;
+	private Long valueInteger;
 	private Timestamp valueDateTime;
 	private String valueString;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getLastModificationId() {
+	public Long getLastModificationId() {
 		return lastModificationId;
 	}
 
-	public void setLastModificationId(long lastModificationId) {
+	public void setLastModificationId(Long lastModificationId) {
 		this.lastModificationId = lastModificationId;
 	}
 
@@ -36,11 +36,11 @@ public class Field {
 		this.valueDecimal = valueDecimal;
 	}
 
-	public long getValueInteger() {
+	public Long getValueInteger() {
 		return valueInteger;
 	}
 
-	public void setValueInteger(long valueInteger) {
+	public void setValueInteger(Long valueInteger) {
 		this.valueInteger = valueInteger;
 	}
 

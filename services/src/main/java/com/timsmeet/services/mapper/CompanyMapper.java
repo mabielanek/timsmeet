@@ -11,9 +11,11 @@ import com.timsmeet.dto.Company;
 import com.timsmeet.dto.Contact;
 import com.timsmeet.dto.Vacation;
 import com.timsmeet.dto.WorkingHour;
+import com.timsmeet.persistance.model.AddressEntity;
 import com.timsmeet.persistance.model.CompanyEntity;
 import com.timsmeet.persistance.model.CompanyVacationEntity;
 import com.timsmeet.persistance.model.CompanyWorkingHourEntity;
+import com.timsmeet.persistance.model.ContactEntity;
 import com.timsmeet.services.find.entity.VacationsFind;
 import com.timsmeet.services.find.entity.WorkingHoursFind;
 
@@ -48,9 +50,15 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 		target.setStatus(source.getStatus());
 
 		if(source.getAddress() != null) {
+			if(target.getAddress() == null) {
+				target.setAddress(new AddressEntity());
+			}
 			addressMapper.map(source.getAddress(), target.getAddress());
 		}
 		if(source.getContact() != null) {
+			if(target.getContact() == null) {
+				target.setContact(new ContactEntity());
+			}
 			contactMapper.map(source.getContact(), target.getContact());
 		}
 		

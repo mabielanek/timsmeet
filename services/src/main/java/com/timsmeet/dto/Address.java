@@ -103,19 +103,18 @@ public class Address {
 	public void setDisplayIndex(Integer displayIndex) {
 		this.displayIndex = displayIndex;
 	}
-	
-	
+
 	public static final class Builder {
 		private final Address address = new Address();
-		
+
 		public Builder(ActivityStatus status) {
 			address.setStatus(status);
 		}
-		
+
 		public Address build() {
 			return address;
 		}
-		
+
 		public Builder id(Long id) {
 			address.setId(id);
 			return this;
@@ -170,6 +169,6 @@ public class Address {
 			address.setDisplayIndex(displayIndex);
 			return this;
 		}
-		
+
 	}
 }

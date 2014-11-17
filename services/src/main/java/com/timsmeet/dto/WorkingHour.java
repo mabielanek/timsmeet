@@ -50,16 +50,16 @@ public class WorkingHour {
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-	
+
 	public static final class Builder {
 		private final WorkingHour workingHour = new WorkingHour();
-		
+
 		public Builder(WeekDay weekDay, Timestamp startTime, Timestamp endTime) {
 			workingHour.setWeekDay(weekDay);
 			workingHour.setStartTime(startTime);
 			workingHour.setEndTime(endTime);
 		}
-		
+
 		public WorkingHour build() {
 			return workingHour;
 		}
@@ -88,7 +88,6 @@ public class WorkingHour {
 			workingHour.setEndTime(endTime);
 			return this;
 		}
-		
-		
+
 	}
 }

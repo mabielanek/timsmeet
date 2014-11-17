@@ -13,5 +13,5 @@ public class ErrorCollection {
 	public void setErrors(Collection<ErrorInfo> errors) {
 		this.errors = errors;
 	}
-	
+
 }

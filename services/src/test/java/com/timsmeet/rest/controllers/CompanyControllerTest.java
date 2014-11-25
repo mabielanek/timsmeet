@@ -49,8 +49,9 @@ import com.timsmeet.services.CompanyService;
 import com.timsmeet.services.builder.DateBuilder;
 
 
-@DatabaseSetup({"ContactData.xml", "PhoneData.xml", "EmailData.xml", "WebUrlData.xml", "AddressData.xml", "CompanyData.xml", "WorkinghourData.xml", "VacationsData.xml"})
-@DatabaseTearDown("CompanyControllerClear.xml")
+@DatabaseSetup({"company/ContactData.xml", "company/PhoneData.xml", "company/EmailData.xml", "company/WebUrlData.xml", "company/AddressData.xml", 
+	"company/CompanyData.xml", "company/WorkinghourData.xml", "company/VacationsData.xml"})
+@DatabaseTearDown("ClearAllTables.xml")
 public class CompanyControllerTest extends BaseControllerTest {
 
 	@Autowired
@@ -60,7 +61,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	private CompanyRepository companyRepository;
 	
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindAllCompanies() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.get("/companies"))
               .andDo(MockMvcResultHandlers.print())
@@ -70,7 +71,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   }
 
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindCompanyById() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001"))
               .andDo(MockMvcResultHandlers.print())
@@ -82,7 +83,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   }
 
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldErrorNotFoundWhenGetNotExistingCompany() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.get("/companies/-3001"))
               .andDo(MockMvcResultHandlers.print())
@@ -90,7 +91,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   }
 
   @Test
-  @ExpectedDatabase(value="CompanyControllerDeleteCompany.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/DeleteCompany.xml", table="tm_company")
   public void shouldDeleteExistingCompany() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.delete("/companies/-1001"))
               .andDo(MockMvcResultHandlers.print())
@@ -99,7 +100,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   
   
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldErrorNotFoundWhenDeleteNotExistingCompany() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.delete("/companies/-3001"))
               .andDo(MockMvcResultHandlers.print())
@@ -112,7 +113,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 
   
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededWorkingHours() throws Exception {
 	  ResultActions resultActions = 
       mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "workingHours"))
@@ -154,7 +155,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   }
 
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededVacations() throws Exception {
 	  ResultActions resultActions = 
 			  mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "vacations"))
@@ -176,7 +177,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   }
   
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededContacts() throws Exception {
 	  ResultActions resultActions =
 			  mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "contact.emails", "contact.webUrls", "contact.phones"))
@@ -219,7 +220,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 
   
   @Test
-  @ExpectedDatabase(value="CompanyControllerNoChangesData.xml", table="tm_company")
+  @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithMultiEmbededEntities() throws Exception {
 	  ResultActions resultActions =
 			  mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "workingHours", "vacations", "contact.emails", "contact.webUrls", "contact.phones"))

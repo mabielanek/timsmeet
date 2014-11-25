@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,7 +29,9 @@ import com.timsmeet.persistance.enums.EmailPreferences;
 
 @Entity
 @Table(name = "tm_employee",
-  indexes={@Index(columnList="contact_id", name="idx_employee_contact_fk")}
+  indexes={
+		@Index(columnList="contact_id", name="idx_employee_contact_fk"),
+		@Index(columnList="company_id", name="idx_employee_company_fk")}
 )
 public class EmployeeEntity {
 
@@ -66,6 +69,10 @@ public class EmployeeEntity {
   @org.hibernate.annotations.Check(constraints = "email_preferences IN ('P','R')")
   @Column(name = "email_preferences", length = 1, nullable = false)
   private String emailPreferences = "P";
+  
+  @ManyToOne
+  @JoinColumn(name = "company_id", foreignKey=@ForeignKey(name="employee_company_fk"))
+  private CompanyEntity company;
   
   @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name = "employee_id")
@@ -370,8 +377,17 @@ public class EmployeeEntity {
   public void setLastModificationId(long lastModificationId) {
 	  this.lastModificationId = lastModificationId;
   }
+  
+  public CompanyEntity getCompany() {
+		return company;
+	}
 
-  public static final class Builder {
+	public void setCompany(CompanyEntity company) {
+		this.company = company;
+	}
+
+
+public static final class Builder {
 	  private EmployeeEntity entity = new EmployeeEntity();
 	  
 	  public EmployeeEntity build() {

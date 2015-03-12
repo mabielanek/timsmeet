@@ -114,6 +114,7 @@
         last_name varchar2(100 char),
         status varchar2(1 char) not null,
         title varchar2(100 char),
+        company_id number(19,0),
         contact_id number(19,0),
         primary key (id)
     );
@@ -289,6 +290,8 @@
 
     create index idx_employee_contact_fk on tm_employee (contact_id);
 
+    create index idx_employee_company_fk on tm_employee (company_id);
+
     create index idx_est_service_fk on tm_employees_service_type (service_type_id);
 
     create index idx_est_employee_fk on tm_employees_service_type (employee_id);
@@ -347,6 +350,11 @@
         add constraint FK_f2qt2qvke84yj56byeuc8jl4b 
         foreign key (contact_id) 
         references tm_contact;
+
+    alter table tm_employee 
+        add constraint employee_company_fk 
+        foreign key (company_id) 
+        references tm_company;
 
     alter table tm_employee 
         add constraint employee_contact_fk 

@@ -9,6 +9,9 @@
         drop constraint FK_f2qt2qvke84yj56byeuc8jl4b;
 
     alter table tm_employee 
+        drop constraint employee_company_fk;
+
+    alter table tm_employee 
         drop constraint employee_contact_fk;
 
     alter table tm_employees_service_type 
@@ -192,6 +195,7 @@
         last_name varchar(100),
         status varchar(1) not null,
         title varchar(100),
+        company_id bigint,
         contact_id bigint,
         primary key (id)
     );
@@ -367,6 +371,8 @@
 
     create index idx_employee_contact_fk on tm_employee (contact_id);
 
+    create index idx_employee_company_fk on tm_employee (company_id);
+
     create index idx_est_service_fk on tm_employees_service_type (service_type_id);
 
     create index idx_est_employee_fk on tm_employees_service_type (employee_id);
@@ -425,6 +431,11 @@
         add constraint FK_f2qt2qvke84yj56byeuc8jl4b 
         foreign key (contact_id) 
         references tm_contact;
+
+    alter table tm_employee 
+        add constraint employee_company_fk 
+        foreign key (company_id) 
+        references tm_company;
 
     alter table tm_employee 
         add constraint employee_contact_fk 

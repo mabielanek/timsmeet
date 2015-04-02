@@ -2,9 +2,12 @@ package com.timsmeet.persistance.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -43,7 +46,11 @@ public class EmailEntity {
   
   @Column(name = "email_address", nullable = false, length = 255)
   private String emailAddress;
-
+  
+  @ManyToOne
+  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="email_contact_fk"))
+  private ContactEntity contact;
+  
   /**
    * Gets the record status.
    *
@@ -142,6 +149,14 @@ public class EmailEntity {
   public void setLastModificationId(long lastModificationId) {
 	  this.lastModificationId = lastModificationId;
   }
+  
+  public ContactEntity getContact() {
+	  return contact;
+  }
+  
+  void setContact(ContactEntity contact) {
+	this.contact = contact;
+  }
 
   public final static class Builder {
 	  private EmailEntity entity = new EmailEntity();
@@ -176,5 +191,6 @@ public class EmailEntity {
 	}
 	  
   }
-  
+
+
 }

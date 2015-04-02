@@ -150,7 +150,7 @@ public class FieldEntity {
    *
    * @param fieldTemplate the new field template
    */
-  public void setFieldTemplate(FieldTemplateEntity fieldTemplate) {
+  void setFieldTemplate(FieldTemplateEntity fieldTemplate) {
     this.fieldTemplate = fieldTemplate;
   }
 

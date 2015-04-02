@@ -2,9 +2,12 @@ package com.timsmeet.persistance.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -51,6 +54,10 @@ public class PhoneEntity {
   
   @Column(name = "display_index", nullable = false)
   private int displayIndex;
+  
+  @ManyToOne
+  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="phone_contact_fk"))
+  private ContactEntity contact;
 
   /**
    * Gets the record status.
@@ -151,7 +158,15 @@ public class PhoneEntity {
     return displayIndex;
   }
 
-  /**
+  public ContactEntity getContact() {
+	return contact;
+  }
+
+  void setContact(ContactEntity contact) {
+	this.contact = contact;
+  }
+
+/**
    * Sets the display index, when sorting is necessary for entity with multiple phones.
    *
    * @param displayIndex the new display index

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -45,15 +44,15 @@ public class ContactEntity {
   private String status;
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="contact_phone_fk"))
+  @JoinColumn(name = "contact_id")
   private List<PhoneEntity> phones = new ArrayList<PhoneEntity>();
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="contact_web_url_fk"))
+  @JoinColumn(name = "contact_id")
   private List<WebUrlEntity> webUrls = new ArrayList<WebUrlEntity>();
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="contact_email_fk"))
+  @JoinColumn(name = "contact_id")
   private List<EmailEntity> emails = new ArrayList<EmailEntity>();
   
   /**
@@ -121,6 +120,7 @@ public class ContactEntity {
     if (this.phones == null) {
       this.phones = Lists.newArrayList();
     }
+    phone.setContact(this);
     return this.phones.add(phone);
   }
   
@@ -132,6 +132,7 @@ public class ContactEntity {
    */
   public boolean removePhone(PhoneEntity phone) {
     Preconditions.checkNotNull(phone);
+    phone.setContact(null);
     if (this.phones != null) {
       return this.phones.remove(phone);
     }
@@ -157,6 +158,7 @@ public class ContactEntity {
     if (this.webUrls == null) {
       this.webUrls = Lists.newArrayList();
     }
+    webUrl.setContact(this);
     return this.webUrls.add(webUrl);
   }
   
@@ -168,6 +170,7 @@ public class ContactEntity {
    */
   public boolean removeWebUrl(WebUrlEntity webUrl) {
     Preconditions.checkNotNull(webUrl);
+    webUrl.setContact(null);
     if (this.webUrls != null) {
       return this.webUrls.remove(webUrl);
     }
@@ -193,6 +196,7 @@ public class ContactEntity {
     if (this.emails == null) {
       this.emails = Lists.newArrayList();
     }
+    email.setContact(this);
     return this.emails.add(email);
   }
   
@@ -204,6 +208,7 @@ public class ContactEntity {
    */
   public boolean removeEmail(EmailEntity email) {
     Preconditions.checkNotNull(email);
+    email.setContact(null);
     if (this.emails != null) {
       return this.emails.remove(email);
     }

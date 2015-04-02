@@ -275,7 +275,7 @@ public class ServiceTypeEntity {
    *
    * @param company the new company
    */
-  public void setCompany(CompanyEntity company) {
+  void setCompany(CompanyEntity company) {
     this.company = company;
   }
 

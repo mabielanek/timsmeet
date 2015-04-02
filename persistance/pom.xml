@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.timsmeet</groupId>
         <artifactId>appointment-manager</artifactId>
-        <version>1.0</version>
+        <version>0.1.0</version>
     </parent>
 
     <artifactId>appointment-manager-persistance</artifactId>

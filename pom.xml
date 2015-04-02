@@ -5,7 +5,7 @@
   <groupId>com.timsmeet</groupId>
   <artifactId>appointment-manager</artifactId>
   <packaging>pom</packaging>
-  <version>1.0</version>
+  <version>0.1.0</version>
   <name>Parent timsmeet project.</name>
  
   <modules>
@@ -16,7 +16,6 @@
   </modules>
 
   <properties>
-    <timsmeet.version>0.0.1</timsmeet.version>
     <hibernate.version>4.3.5.Final</hibernate.version>
     <guava.version>17.0</guava.version>
     <spring.version>4.0.5.RELEASE</spring.version>
@@ -78,24 +77,6 @@
         <artifactId>spring-webmvc</artifactId>
         <version>${spring.version}</version>
       </dependency>
-<!--      
-      <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-mapper-asl</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.fasterxml.jackson.datatype</groupId>
-        <artifactId>jackson-datatype-hibernate4</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>      
--->            
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>

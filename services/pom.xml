@@ -6,20 +6,23 @@
   <parent>
     <groupId>com.timsmeet</groupId>
     <artifactId>appointment-manager</artifactId>
-    <version>1.0</version>
+    <version>0.1.0</version>
   </parent>
 
   <artifactId>appointment-manager-services</artifactId>
   <packaging>war</packaging>
-  <version>${timsmeet.version}</version>
 
   <name>Timsmeet appointment manager services.</name>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>  
 
   <dependencies>
     <dependency>
       <groupId>com.timsmeet</groupId>
       <artifactId>appointment-manager-persistance</artifactId>
-      <version>${timsmeet.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>

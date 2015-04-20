@@ -1,8 +1,10 @@
 package com.timsmeet.dto;
 
+import com.timsmeet.dto.entity.BaseEntity;
+import com.timsmeet.dto.entity.EntityState;
 import com.timsmeet.persistance.enums.ActivityStatus;
 
-public class WebUrl {
+public class WebUrl extends BaseEntity {
 
 	private Long id;
 	private Long lastModificationId;
@@ -62,7 +64,8 @@ public class WebUrl {
 	public static final class Builder {
 		private final WebUrl webUrl = new WebUrl();
 
-		public Builder(ActivityStatus status) {
+		public Builder(EntityState entityState, ActivityStatus status) {
+			webUrl.getEntityAspect().setEntityState(entityState);
 			webUrl.setStatus(status);
 		}
 
@@ -77,6 +80,11 @@ public class WebUrl {
 
 		public Builder lastModificationId(Long lastModificationId) {
 			webUrl.setLastModificationId(lastModificationId);
+			return this;
+		}
+		
+		public Builder entityState(EntityState entityState) {
+			webUrl.getEntityAspect().setEntityState(entityState);
 			return this;
 		}
 

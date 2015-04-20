@@ -56,7 +56,7 @@ public class PhoneEntity {
   private int displayIndex;
   
   @ManyToOne
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="phone_contact_fk"))
+  @JoinColumn(name = "contact_id", foreignKey=@ForeignKey(name="phone_contact_fk"))
   private ContactEntity contact;
 
   /**

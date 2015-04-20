@@ -48,7 +48,7 @@ public class EmailEntity {
   private String emailAddress;
   
   @ManyToOne
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="email_contact_fk"))
+  @JoinColumn(name = "contact_id", foreignKey=@ForeignKey(name="email_contact_fk"))
   private ContactEntity contact;
   
   /**

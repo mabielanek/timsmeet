@@ -16,8 +16,7 @@ import com.timsmeet.persistance.model.CompanyEntity;
 import com.timsmeet.persistance.model.CompanyVacationEntity;
 import com.timsmeet.persistance.model.CompanyWorkingHourEntity;
 import com.timsmeet.persistance.model.ContactEntity;
-import com.timsmeet.services.find.entity.VacationsFind;
-import com.timsmeet.services.find.entity.WorkingHoursFind;
+import com.timsmeet.services.find.entity.FindEntityWithIdAccessor;
 
 @Service
 public class CompanyMapper implements Mapper<Company, CompanyEntity> {
@@ -35,10 +34,10 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 	private WorkingHourMapper workingHourMapper;
 	
 	@Autowired
-	private VacationsFind vacationsFind;
+	private FindEntityWithIdAccessor<CompanyVacationEntity> companyVacationFind;
 	
 	@Autowired
-	private WorkingHoursFind workingHoursFind;
+	private FindEntityWithIdAccessor<CompanyWorkingHourEntity> companyWorkingHourFind;
 
 	@Override
 	public void map(Company source, CompanyEntity target) {
@@ -65,7 +64,7 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 		if(source.getVacations() != null) {
 			for(Vacation vacation : source.getVacations()) {
 				if(DtoStateHelper.isDeleted(vacation)) {
-					CompanyVacationEntity deletedVacation = vacationsFind.findCompanyVacationById(target, vacation.getId());
+					CompanyVacationEntity deletedVacation = companyVacationFind.findById(target.getVacations(), vacation.getId()); 
 					if(deletedVacation != null) {
 						target.removeVacation(deletedVacation);
 					}
@@ -79,7 +78,7 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 		if(source.getWorkingHours() != null) {
 			for(WorkingHour workingHour : source.getWorkingHours()) {
 				if(DtoStateHelper.isDeleted(workingHour)) {
-					CompanyWorkingHourEntity deletedWorkingHour = workingHoursFind.findCompanyWorikingHourById(target, workingHour.getId()); 
+					CompanyWorkingHourEntity deletedWorkingHour = companyWorkingHourFind.findById(target.getWorkingHours(), workingHour.getId()); 
 					if(deletedWorkingHour != null) {
 						target.removeWorkingHour(deletedWorkingHour);
 					}
@@ -89,10 +88,7 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 				}
 			}
 		}
-
-		
 	}
-
 
 	private CompanyVacationEntity existingOrNewVacationEntity(CompanyEntity companyEntity, Vacation vacation) {
 		if(DtoStateHelper.isNew(vacation)) {
@@ -100,7 +96,7 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 			companyEntity.addVacation(companyVacationEntity);
 			return companyVacationEntity;
 		}
-		return vacationsFind.findCompanyVacationById(companyEntity, vacation.getId());
+		return companyVacationFind.findById(companyEntity.getVacations(), vacation.getId());
 	}
 	
 	private CompanyWorkingHourEntity existingOrNewWorkingHourEntity(CompanyEntity companyEntity, WorkingHour workingHour) {
@@ -109,7 +105,7 @@ public class CompanyMapper implements Mapper<Company, CompanyEntity> {
 			companyEntity.addWorkingHour(companyWorkingHourEntity);
 			return companyWorkingHourEntity;
 		}
-		return workingHoursFind.findCompanyWorikingHourById(companyEntity, workingHour.getId());
+		return companyWorkingHourFind.findById(companyEntity.getWorkingHours(), workingHour.getId());
 	}
 
 	@Override

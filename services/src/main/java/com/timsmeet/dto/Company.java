@@ -2,9 +2,11 @@ package com.timsmeet.dto;
 
 import java.util.List;
 
+import com.timsmeet.dto.entity.BaseEntity;
+import com.timsmeet.dto.entity.EntityState;
 import com.timsmeet.persistance.enums.ActivityStatus;
 
-public class Company {
+public class Company extends BaseEntity {
 
 	private Long id;
 	private Long lastModificationId;
@@ -125,6 +127,11 @@ public class Company {
 
 		public Builder lastModificationId(Long lastModificationId) {
 			company.setLastModificationId(lastModificationId);
+			return this;
+		}
+		
+		public Builder entityState(EntityState entityState) {
+			company.getEntityAspect().setEntityState(entityState);
 			return this;
 		}
 

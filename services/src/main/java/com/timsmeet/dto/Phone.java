@@ -1,9 +1,11 @@
 package com.timsmeet.dto;
 
+import com.timsmeet.dto.entity.BaseEntity;
+import com.timsmeet.dto.entity.EntityState;
 import com.timsmeet.persistance.enums.ActivityStatus;
 import com.timsmeet.persistance.enums.PhoneNumberType;
 
-public class Phone {
+public class Phone extends BaseEntity {
 	private Long id;
 	private Long lastModificationId;
 	private ActivityStatus status;
@@ -80,7 +82,8 @@ public class Phone {
 	public static final class Builder {
 		private final Phone phone = new Phone();
 
-		public Builder(ActivityStatus status, PhoneNumberType numberType) {
+		public Builder(EntityState entityState, ActivityStatus status, PhoneNumberType numberType) {
+			phone.getEntityAspect().setEntityState(entityState);
 			phone.setStatus(status);
 			phone.setNumberType(numberType);
 		}
@@ -95,6 +98,11 @@ public class Phone {
 
 		public Builder lastModificationId(Long lastModificationId) {
 			phone.setLastModificationId(lastModificationId);
+			return this;
+		}
+
+		public Builder entityState(EntityState entityState) {
+			phone.getEntityAspect().setEntityState(entityState);
 			return this;
 		}
 

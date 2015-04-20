@@ -3,7 +3,9 @@ package com.timsmeet.dto;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Field {
+import com.timsmeet.dto.entity.BaseEntity;
+
+public class Field extends BaseEntity {
 
 	private Long id;
 	private Long lastModificationId;

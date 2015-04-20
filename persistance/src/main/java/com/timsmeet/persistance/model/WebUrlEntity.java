@@ -48,7 +48,7 @@ public class WebUrlEntity {
   private String webUrlAddress;
   
   @ManyToOne
-  @JoinColumn(name = "contact_id", nullable = false, foreignKey=@ForeignKey(name="web_url_contact_fk"))
+  @JoinColumn(name = "contact_id", foreignKey=@ForeignKey(name="web_url_contact_fk"))
   private ContactEntity contact;
 
   /**

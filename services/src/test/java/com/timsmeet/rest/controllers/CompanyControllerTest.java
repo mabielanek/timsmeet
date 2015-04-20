@@ -36,6 +36,7 @@ import com.timsmeet.dto.Phone;
 import com.timsmeet.dto.Vacation;
 import com.timsmeet.dto.WebUrl;
 import com.timsmeet.dto.WorkingHour;
+import com.timsmeet.dto.entity.EntityState;
 import com.timsmeet.persistance.enums.ActivityStatus;
 import com.timsmeet.persistance.enums.PhoneNumberType;
 import com.timsmeet.persistance.enums.WeekDay;
@@ -247,21 +248,21 @@ public class CompanyControllerTest extends BaseControllerTest {
 
 	  
 	  Company companyToSave = new Company.Builder("Added Company", ActivityStatus.ACTIVE)
-	  	.vacations(Arrays.asList(new Vacation.Builder(vacationStart1, vacationEnd1).build()))
+	  	.vacations(Arrays.asList(new Vacation.Builder(EntityState.ADDED, vacationStart1, vacationEnd1).build()))
 	  	.workingHours(Arrays.asList(
-	  			new WorkingHour.Builder(WeekDay.MONDAY, workingHourStart1, workingHourEnd1).build(),
-	  			new WorkingHour.Builder(WeekDay.TUESDAY, workingHourStart2, workingHourEnd2).build()
+	  			new WorkingHour.Builder(EntityState.ADDED, WeekDay.MONDAY, workingHourStart1, workingHourEnd1).build(),
+	  			new WorkingHour.Builder(EntityState.ADDED, WeekDay.TUESDAY, workingHourStart2, workingHourEnd2).build()
 	  			))
-	  	.address(new Address.Builder(ActivityStatus.ACTIVE).address1("ADD1").address2("ADD2").city("Paris").comment("add comment").country("France").displayIndex(1).state("ASD").zipCode("321123").build())
-	  	.contact(new Contact.Builder(ActivityStatus.ACTIVE)
+	  	.address(new Address.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).address1("ADD1").address2("ADD2").city("Paris").comment("add comment").country("France").displayIndex(1).state("ASD").zipCode("321123").build())
+	  	.contact(new Contact.Builder(EntityState.ADDED, ActivityStatus.ACTIVE)
 	  		.phones(Arrays.asList(
-	  				new Phone.Builder(ActivityStatus.ACTIVE, PhoneNumberType.MOBILE).displayIndex(0).phone("112233").phoneExt("23").build(),
-	  				new Phone.Builder(ActivityStatus.ACTIVE, PhoneNumberType.LANDLINE).displayIndex(1).phone("556677").build()))
+	  				new Phone.Builder(EntityState.ADDED, ActivityStatus.ACTIVE, PhoneNumberType.MOBILE).displayIndex(0).phone("112233").phoneExt("23").build(),
+	  				new Phone.Builder(EntityState.ADDED, ActivityStatus.ACTIVE, PhoneNumberType.LANDLINE).displayIndex(1).phone("556677").build()))
 	  		.webUrls(Arrays.asList(
-	  				new WebUrl.Builder(ActivityStatus.ACTIVE).displayIndex(0).webUrlAddress("http://allo.allo").comment("allo comment").build(),
-	  				new WebUrl.Builder(ActivityStatus.ACTIVE).displayIndex(1).webUrlAddress("https://support.allo").build()))
+	  				new WebUrl.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).displayIndex(0).webUrlAddress("http://allo.allo").comment("allo comment").build(),
+	  				new WebUrl.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).displayIndex(1).webUrlAddress("https://support.allo").build()))
 	  		.emails(Arrays.asList(
-	  				new Email.Builder(ActivityStatus.ACTIVE).displayIndex(0).emailAddress("mis@allo.com").comment("write an email here").build()))
+	  				new Email.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).displayIndex(0).emailAddress("mis@allo.com").comment("write an email here").build()))
 	  	.build())
 	  	.build();
 	  

@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Verify;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.timsmeet.dto.Company;
+import com.timsmeet.dto.entity.EntityState;
 import com.timsmeet.persistance.model.CompanyEntity;
 import com.timsmeet.persistance.repositories.AddressRepository;
 import com.timsmeet.persistance.repositories.CompanyRepository;
@@ -49,6 +51,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	@Transactional
 	public Company save(Company company) {
+		if(company.getId() == null) {
+			Verify.verify(company.getEntityAspect().getEntityState().equals(EntityState.ADDED), "In save operation, when id is null, entity state should be ADDED");
+		} else {
+			Verify.verify(company.getEntityAspect().getEntityState().equals(EntityState.MODIFIED), "In save operation, when id is not null, entity state should be MODIFIED");
+		}
+		
 		CompanyEntity dbCompany = null;
 		if(company.getId() == null) {
 			dbCompany = new CompanyEntity();

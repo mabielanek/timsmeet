@@ -22,8 +22,8 @@ public class EmployeeController {
 
 	  @RequestMapping(method = RequestMethod.GET)
 	  @ResponseBody  
-	  public List<Employee> getEmpolyees(@RequestParam(required = true) String companyId) {
-	    return empoloyeeService.readEmpoyees(Long.valueOf(companyId));
+	  public List<Employee> getEmpolyees(@RequestParam(required = true) String employeeId) {
+	    return empoloyeeService.readEmpoyees(Long.valueOf(employeeId));
 	  }
 
 }

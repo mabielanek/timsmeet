@@ -14,7 +14,7 @@ import com.timsmeet.persistance.model.ContactEntity;
 import com.timsmeet.persistance.model.EmployeeEntity;
 import com.timsmeet.persistance.model.EmployeeVacationEntity;
 import com.timsmeet.persistance.model.EmployeeWorkingHourEntity;
-import com.timsmeet.services.find.entity.FindEntityWithIdAccessor;
+import com.timsmeet.services.find.FindEntityWithIdAccessor;
 
 @Service
 public class EmployeeMapper implements Mapper<Employee, EmployeeEntity> {

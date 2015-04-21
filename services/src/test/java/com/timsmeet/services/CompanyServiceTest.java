@@ -33,7 +33,7 @@ public class CompanyServiceTest extends BaseServiceTest {
     WorkingHour workingHour1 = new WorkingHour.Builder(EntityState.ADDED, WeekDay.MONDAY, new Timestamp(0), new Timestamp(0)).build();
     WorkingHour workingHour2 = new WorkingHour.Builder(EntityState.ADDED, WeekDay.TUESDAY, new Timestamp(0), new Timestamp(0)).build();
     Address companyAddress = new Address.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).address1("xxx").address2("yyy").city("RZE").displayIndex(0).build();
-    Company company = new Company.Builder("Company1", ActivityStatus.ACTIVE)
+    Company company = new Company.Builder(EntityState.ADDED, "Company1", ActivityStatus.ACTIVE)
     	.address(companyAddress)
     	.vacations(Arrays.asList(vacation))
     	.workingHours(Arrays.asList(workingHour1, workingHour2))

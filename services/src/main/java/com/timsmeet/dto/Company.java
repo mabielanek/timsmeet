@@ -111,7 +111,8 @@ public class Company extends BaseEntity {
 	public final static class Builder {
 		private final Company company = new Company();
 
-		public Builder(String companyName, ActivityStatus status) {
+		public Builder(EntityState entityState, String companyName, ActivityStatus status) {
+			company.getEntityAspect().setEntityState(entityState);
 			company.setName(companyName);
 			company.setStatus(status);
 		}

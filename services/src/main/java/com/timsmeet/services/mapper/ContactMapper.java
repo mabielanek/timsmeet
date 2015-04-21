@@ -14,7 +14,7 @@ import com.timsmeet.persistance.model.ContactEntity;
 import com.timsmeet.persistance.model.EmailEntity;
 import com.timsmeet.persistance.model.PhoneEntity;
 import com.timsmeet.persistance.model.WebUrlEntity;
-import com.timsmeet.services.find.entity.FindEntityWithIdAccessor;
+import com.timsmeet.services.find.FindEntityWithIdAccessor;
 
 @Service
 public class ContactMapper implements Mapper<Contact, ContactEntity> {
@@ -85,9 +85,6 @@ public class ContactMapper implements Mapper<Contact, ContactEntity> {
 				}
 			}
 		}
-		
-		
-		//todo add other mappings
 	}
 
 	private EmailEntity existingOrNewEmailEntity(ContactEntity contactEntity, Email email) {

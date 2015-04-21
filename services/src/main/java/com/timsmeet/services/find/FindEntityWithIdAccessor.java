@@ -1,4 +1,4 @@
-package com.timsmeet.services.find.entity;
+package com.timsmeet.services.find;
 
 import java.util.Collection;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.base.Predicate;
 import com.google.common.base.Verify;
 import com.google.common.collect.Collections2;
+import com.timsmeet.services.find.entity.IdAccessor;
 
 @Service
 public class FindEntityWithIdAccessor<T> {
@@ -39,6 +40,6 @@ public class FindEntityWithIdAccessor<T> {
 			throw new IllegalStateException("More than one entity with key: " + entityId + " found in collection.");
 		}
 		return matchingEntities.iterator().next();
-		
 	}
+	
 }

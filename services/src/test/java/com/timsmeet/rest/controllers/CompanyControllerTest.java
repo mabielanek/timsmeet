@@ -247,7 +247,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  final Timestamp workingHourEnd2 = DateBuilder.utcTimeAsTimestamp(16, 45);
 
 	  
-	  Company companyToSave = new Company.Builder("Added Company", ActivityStatus.ACTIVE)
+	  Company companyToSave = new Company.Builder(EntityState.ADDED, "Added Company", ActivityStatus.ACTIVE)
 	  	.vacations(Arrays.asList(new Vacation.Builder(EntityState.ADDED, vacationStart1, vacationEnd1).build()))
 	  	.workingHours(Arrays.asList(
 	  			new WorkingHour.Builder(EntityState.ADDED, WeekDay.MONDAY, workingHourStart1, workingHourEnd1).build(),
@@ -362,6 +362,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 		
 		company.setName("Modified name");
 		company.getAddress().setAddress1("Modified add 1");
+		company.getEntityAspect().setEntityState(EntityState.MODIFIED);
 		
 		
 		MockHttpServletResponse saveResponse = mockMvc.perform(MockMvcRequestBuilders.post("/companies")

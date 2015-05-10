@@ -3,12 +3,10 @@ package com.timsmeet.services;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.google.common.base.Verify;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -25,10 +23,10 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
 	@Autowired
 	private ContactRepository contactRepository;
-	
+
 	@Autowired
 	private AddressRepository addressRepository;
 
@@ -56,21 +54,21 @@ public class CompanyServiceImpl implements CompanyService {
 		} else {
 			Verify.verify(company.getEntityAspect().getEntityState().equals(EntityState.MODIFIED), "In save operation, when id is not null, entity state should be MODIFIED");
 		}
-		
+
 		CompanyEntity dbCompany = null;
 		if(company.getId() == null) {
 			dbCompany = new CompanyEntity();
 		} else {
 			dbCompany = companyRepository.findOne(company.getId());
 		}
-		
+
 		if(dbCompany != null) {
 			companyMapper.map(company, dbCompany);
 			dbCompany = companyRepository.save(dbCompany);
 		} else {
 			throw new IllegalStateException("No Company to update"); //TODO proper handling of not found
 		}
-		
+
 		Company savedCompany = new Company();
 		companyMapper.inverseMap(dbCompany, savedCompany);
 		return savedCompany;
@@ -79,37 +77,37 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	@Transactional
 	public Company readCompany(Long companyId, String[] embeded) {
-		Set<String> embededSet = embeded != null ? Sets.newHashSet(embeded)
-				: Collections.<String> emptySet();
+		Set<String> embededSet = embeded != null ? Sets.newHashSet(embeded) : Collections.<String> emptySet();
 		CompanyEntity dbCompany = companyRepository.findOne(companyId);
-		
+
 		if(dbCompany == null) {
 			throw new NotFoundException("Company with id: " + companyId + " not found.");
-		} else {
-			if (embededSet.contains("serviceTypes")) {
-				Hibernate.initialize(dbCompany.getServiceTypes());
-			}
-			if (embededSet.contains("serviceLocations")) {
-				Hibernate.initialize(dbCompany.getServiceLocations());
-			}
-			if (embededSet.contains("workingHours")) {
-				Hibernate.initialize(dbCompany.getWorkingHours());
-			}
-			if (embededSet.contains("vacations")) {
-				Hibernate.initialize(dbCompany.getVacations());
-			}
-			if (embededSet.contains("fields")) {
-				Hibernate.initialize(dbCompany.getFields());
-			}
-			if (embededSet.contains("contact.emails")) {
-				Hibernate.initialize(dbCompany.getContact().getEmails());
-			}
-			if (embededSet.contains("contact.phones")) {
-				Hibernate.initialize(dbCompany.getContact().getPhones());
-			}
-			if (embededSet.contains("contact.webUrls")) {
-				Hibernate.initialize(dbCompany.getContact().getWebUrls());
-			}
+		}
+
+
+		if (embededSet.contains("serviceTypes")) {
+			Hibernate.initialize(dbCompany.getServiceTypes());
+		}
+		if (embededSet.contains("serviceLocations")) {
+			Hibernate.initialize(dbCompany.getServiceLocations());
+		}
+		if (embededSet.contains("workingHours")) {
+			Hibernate.initialize(dbCompany.getWorkingHours());
+		}
+		if (embededSet.contains("vacations")) {
+			Hibernate.initialize(dbCompany.getVacations());
+		}
+		if (embededSet.contains("fields")) {
+			Hibernate.initialize(dbCompany.getFields());
+		}
+		if (embededSet.contains("contact.emails")) {
+			Hibernate.initialize(dbCompany.getContact().getEmails());
+		}
+		if (embededSet.contains("contact.phones")) {
+			Hibernate.initialize(dbCompany.getContact().getPhones());
+		}
+		if (embededSet.contains("contact.webUrls")) {
+			Hibernate.initialize(dbCompany.getContact().getWebUrls());
 		}
 
 		Company company = new Company();
@@ -119,9 +117,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public void delete(Long companyId) {
-		
+
 		CompanyEntity dbCompany = companyRepository.findOne(companyId);
-		
+
 		if(dbCompany == null) {
 			throw new NotFoundException("Company with id: " + companyId + " not found.");
 		}

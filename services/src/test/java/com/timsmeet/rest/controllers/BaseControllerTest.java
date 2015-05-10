@@ -1,7 +1,6 @@
 package com.timsmeet.rest.controllers;
 
 import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -17,15 +16,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.timsmeet.rest.controllers.spring.RestServicesConfig;
+import com.timsmeet.spring.TestConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {RestServicesConfig.class})
+@ContextConfiguration(classes = {RestServicesConfig.class, TestConfig.class})
 @ActiveProfiles("test")
-@TestExecutionListeners({ 
+@TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,
   DirtiesContextTestExecutionListener.class,
   TransactionalTestExecutionListener.class,

@@ -1,9 +1,7 @@
 package com.timsmeet.persistance.spring;
 
 import java.util.Properties;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +12,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-
 import com.google.common.base.Preconditions;
 
 @Configuration
@@ -35,7 +32,7 @@ public class PersistenceTestConfig {
 
     return dataSource;
   }
-  
+
   @Bean
   public JpaVendorAdapter jpaVendorAdapter() {
     HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
@@ -49,7 +46,7 @@ public class PersistenceTestConfig {
     return new Properties() {
 
       private static final long serialVersionUID = -6641535886154967843L;
-      
+
       {
         setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));

@@ -7,11 +7,9 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -50,17 +47,17 @@ import com.timsmeet.services.CompanyService;
 import com.timsmeet.services.builder.DateBuilder;
 
 
-@DatabaseSetup({"company/ContactData.xml", "company/PhoneData.xml", "company/EmailData.xml", "company/WebUrlData.xml", "company/AddressData.xml", 
+@DatabaseSetup({"company/ContactData.xml", "company/PhoneData.xml", "company/EmailData.xml", "company/WebUrlData.xml", "company/AddressData.xml",
 	"company/CompanyData.xml", "company/WorkinghourData.xml", "company/VacationsData.xml"})
 @DatabaseTearDown("ClearAllTables.xml")
 public class CompanyControllerTest extends BaseControllerTest {
 
 	@Autowired
 	private CompanyService companyService;
-	
+
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindAllCompanies() throws Exception {
@@ -98,8 +95,8 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andDo(MockMvcResultHandlers.print())
               .andExpect(MockMvcResultMatchers.status().isOk());
   }
-  
-  
+
+
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldErrorNotFoundWhenDeleteNotExistingCompany() throws Exception {
@@ -112,23 +109,23 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andExpect(MockMvcResultMatchers.jsonPath("$..errorCode", hasItem("0001")));
   }
 
-  
+
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededWorkingHours() throws Exception {
-	  ResultActions resultActions = 
+	  ResultActions resultActions =
       mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "workingHours"))
               .andDo(MockMvcResultHandlers.print())
               .andExpect(MockMvcResultMatchers.status().isOk())
               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
               .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(-1001)));
-	  
+
 	  resultActions = andValidateReadComanyWorkingHours(resultActions);
   }
-  
+
   private ResultActions andValidateReadComanyWorkingHours(ResultActions resultActions) throws Exception {
       return resultActions
-    		  
+
     		  .andExpect(MockMvcResultMatchers.jsonPath("$.workingHours", hasSize(6)))
     		  .andExpect(MockMvcResultMatchers.jsonPath("$..workingHours[?(@.id==-1001)].weekDay", hasItem(WeekDay.MONDAY.toString())))
     		  .andExpect(MockMvcResultMatchers.jsonPath("$..workingHours[?(@.id==-1001)].startTime", hasItem("2000-06-01T06:00:00.000+0000")))
@@ -158,7 +155,7 @@ public class CompanyControllerTest extends BaseControllerTest {
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededVacations() throws Exception {
-	  ResultActions resultActions = 
+	  ResultActions resultActions =
 			  mockMvc.perform(MockMvcRequestBuilders.get("/companies/-1001").param("embeded", "vacations"))
               .andDo(MockMvcResultHandlers.print())
               .andExpect(MockMvcResultMatchers.status().isOk())
@@ -166,7 +163,7 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(-1001)));
 	  resultActions = andValidateCompanyVacations(resultActions);
   }
-  
+
   private ResultActions andValidateCompanyVacations(ResultActions resultActions) throws Exception {
 	  return resultActions
               .andExpect(MockMvcResultMatchers.jsonPath("$.vacations", hasSize(2)))
@@ -176,7 +173,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  		  .andExpect(MockMvcResultMatchers.jsonPath("$..vacations[?(@.id==-1002)].startDay", hasItem("2000-08-01T00:00:00.000+0000")))
 		      .andExpect(MockMvcResultMatchers.jsonPath("$..vacations[?(@.id==-1002)].endDay", hasItem("2000-08-02T00:00:00.000+0000")));
   }
-  
+
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithEmbededContacts() throws Exception {
@@ -188,7 +185,7 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(-1001)));
 	  resultActions = andValidateCompanyContacts(resultActions);
   }
-  
+
   private ResultActions andValidateCompanyContacts(ResultActions resultActions) throws Exception {
 	  return resultActions
               .andExpect(MockMvcResultMatchers.jsonPath("$.contact.emails", hasSize(2)))
@@ -219,7 +216,7 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andExpect(MockMvcResultMatchers.jsonPath("$.contact..phones[?(@.id==-1002)].displayIndex", hasItem(0)));
   }
 
-  
+
   @Test
   @ExpectedDatabase(value="company/operations/NoChangesData.xml", table="tm_company")
   public void shouldFindByIdWithMultiEmbededEntities() throws Exception {
@@ -234,11 +231,11 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  resultActions = andValidateCompanyContacts(resultActions);
   }
 
-  
+
   @Test
   @Transactional
   public void shouldSaveCompanyWithEmbededObjects() throws Exception {
-	  
+
 	  final Timestamp vacationStart1 = DateBuilder.utcDateAsTimestamp(2014, 1, 3);
 	  final Timestamp vacationEnd1 = DateBuilder.utcDateAsTimestamp(2014, 1, 6);
 	  final Timestamp workingHourStart1 = DateBuilder.utcTimeAsTimestamp(8, 30);
@@ -246,7 +243,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  final Timestamp workingHourStart2 = DateBuilder.utcTimeAsTimestamp(9, 15);
 	  final Timestamp workingHourEnd2 = DateBuilder.utcTimeAsTimestamp(16, 45);
 
-	  
+
 	  Company companyToSave = new Company.Builder(EntityState.ADDED, "Added Company", ActivityStatus.ACTIVE)
 	  	.vacations(Arrays.asList(new Vacation.Builder(EntityState.ADDED, vacationStart1, vacationEnd1).build()))
 	  	.workingHours(Arrays.asList(
@@ -265,7 +262,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  				new Email.Builder(EntityState.ADDED, ActivityStatus.ACTIVE).displayIndex(0).emailAddress("mis@allo.com").comment("write an email here").build()))
 	  	.build())
 	  	.build();
-	  
+
 	  MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/companies")
 			  .contentType(RestTestUtil.APPLICATION_JSON_UTF8)
 			  .content(RestTestUtil.convertObjectToJsonBytes(companyToSave)))
@@ -275,9 +272,9 @@ public class CompanyControllerTest extends BaseControllerTest {
               .andExpect(MockMvcResultMatchers.jsonPath("$.id", notNullValue()))
               .andExpect(MockMvcResultMatchers.jsonPath("$.lastModificationId", notNullValue()))
               .andReturn().getResponse();
-	  
+
 	  Company company = RestTestUtil.convertJsonBytesToObject(response.getContentAsByteArray(), Company.class);
-	  
+
 	  CompanyEntity insertedCompanyDb = companyRepository.findOne(company.getId());
 	  assertThat(insertedCompanyDb.getVacations(), hasSize(1));
 	  assertThat(insertedCompanyDb.getVacations().get(0), hasProperty("startDay", equalTo(vacationStart1)));
@@ -293,9 +290,9 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  assertThat(insertedCompanyDb.getAddress().getState(), equalTo("ASD"));
 	  assertThat(insertedCompanyDb.getAddress().getZipCode(), equalTo("321123"));
 	  assertThat(insertedCompanyDb.getAddress().getStatus(), equalTo(ActivityStatus.ACTIVE));
-	  
+
 	  assertThat(insertedCompanyDb.getContact().getStatus(), equalTo(ActivityStatus.ACTIVE));
-	  
+
 	  assertThat(insertedCompanyDb.getContact().getPhones(), hasSize(2));
 	  List<PhoneEntity> phonesCheck = Lists.newArrayList(findPhoneByNumber(insertedCompanyDb.getContact().getPhones(), "112233"));
 	  assertThat(phonesCheck, hasSize(1));
@@ -309,7 +306,7 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  assertThat(phonesCheck.get(0), hasProperty("status", equalTo(ActivityStatus.ACTIVE)));
 	  assertThat(phonesCheck.get(0), hasProperty("displayIndex", equalTo(1)));
 	  assertThat(phonesCheck.get(0), hasProperty("numberType", equalTo(PhoneNumberType.LANDLINE)));
-	  
+
 	  assertThat(insertedCompanyDb.getContact().getWebUrls(), hasSize(2));
 	  List<WebUrlEntity> urlsCheck = Lists.newArrayList(findWebUrlByUrl(insertedCompanyDb.getContact().getWebUrls(), "http://allo.allo"));
 	  assertThat(urlsCheck, hasSize(1));
@@ -327,25 +324,25 @@ public class CompanyControllerTest extends BaseControllerTest {
 	  assertThat(insertedCompanyDb.getContact().getEmails().get(0), hasProperty("status", equalTo(ActivityStatus.ACTIVE)));
 	  assertThat(insertedCompanyDb.getContact().getEmails().get(0), hasProperty("displayIndex", equalTo(0)));
 	  assertThat(insertedCompanyDb.getContact().getEmails().get(0), hasProperty("comment", equalTo("write an email here")));
-	  
+
 	  assertThat(insertedCompanyDb.getWorkingHours(), hasSize(2));
-	  List<CompanyWorkingHourEntity> mondayWorkingHoursDb = 
+	  List<CompanyWorkingHourEntity> mondayWorkingHoursDb =
 			  Lists.newArrayList(findWorkingHourByWeekDay(insertedCompanyDb.getWorkingHours(), WeekDay.MONDAY));
 	  assertThat(mondayWorkingHoursDb, hasSize(1));
 	  assertThat(mondayWorkingHoursDb.get(0), hasProperty("weekDay", equalTo(WeekDay.MONDAY)));
 	  assertThat(mondayWorkingHoursDb.get(0), hasProperty("startTime", equalTo(workingHourStart1)));
 	  assertThat(mondayWorkingHoursDb.get(0), hasProperty("endTime", equalTo(workingHourEnd1)));
 
-	  List<CompanyWorkingHourEntity> tuesdayWorkingHoursDb = 
+	  List<CompanyWorkingHourEntity> tuesdayWorkingHoursDb =
 			  Lists.newArrayList(findWorkingHourByWeekDay(insertedCompanyDb.getWorkingHours(), WeekDay.TUESDAY));
 	  assertThat(tuesdayWorkingHoursDb, hasSize(1));
 	  assertThat(tuesdayWorkingHoursDb.get(0), hasProperty("weekDay", equalTo(WeekDay.TUESDAY)));
 	  assertThat(tuesdayWorkingHoursDb.get(0), hasProperty("startTime", equalTo(workingHourStart2)));
 	  assertThat(tuesdayWorkingHoursDb.get(0), hasProperty("endTime", equalTo(workingHourEnd2)));
-	  
+
   }
-  
-  
+
+
 	@Test
 	@Transactional
 	public void shouldUpdateCompanyWithEmbededObjects() throws Exception {
@@ -357,15 +354,15 @@ public class CompanyControllerTest extends BaseControllerTest {
 	            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
 	            .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(-1001)))
 	            .andReturn().getResponse();
-		
+
 		Company company = RestTestUtil.convertJsonBytesToObject(response.getContentAsByteArray(), Company.class);
-		
+
 		company.setName("Modified name");
 		company.getAddress().setAddress1("Modified add 1");
 		company.getEntityAspect().setEntityState(EntityState.MODIFIED);
-		
-		
-		MockHttpServletResponse saveResponse = mockMvc.perform(MockMvcRequestBuilders.post("/companies")
+
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/companies")
 				.contentType(RestTestUtil.APPLICATION_JSON_UTF8)
 				.content(RestTestUtil.convertObjectToJsonBytes(company)))
 	            .andDo(MockMvcResultHandlers.print())
@@ -386,25 +383,25 @@ public class CompanyControllerTest extends BaseControllerTest {
 			}
 		});
 	}
-	
+
 	private Iterable<PhoneEntity> findPhoneByNumber(List<PhoneEntity> phones, final String number) {
 		return Iterables.filter(phones, new Predicate<PhoneEntity>() {
 			@Override
 			public boolean apply(PhoneEntity input) {
 				return number.equals(input.getPhone());
 			}
-			
+
 		});
 	}
 
-	
+
 	private Iterable<WebUrlEntity> findWebUrlByUrl(List<WebUrlEntity> webUrls, final String url) {
 		return Iterables.filter(webUrls, new Predicate<WebUrlEntity>() {
 			@Override
 			public boolean apply(WebUrlEntity input) {
 				return url.equals(input.getWebUrlAddress());
 			}
-			
+
 		});
 	}
 

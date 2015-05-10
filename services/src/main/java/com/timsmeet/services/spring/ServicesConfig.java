@@ -5,7 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import com.timsmeet.persistance.model.CompanyVacationEntity;
 import com.timsmeet.persistance.model.CompanyWorkingHourEntity;
 import com.timsmeet.persistance.model.EmailEntity;
@@ -33,42 +32,42 @@ public class ServicesConfig {
 		companyVacationFind.setIdAccessor(new VacationIdAccessor<CompanyVacationEntity>());
 		return companyVacationFind;
 	}
-	
+
 	@Bean(name = "companyWorkingHourFind")
 	public FindEntityWithIdAccessor<CompanyWorkingHourEntity> getCompanyWorkingHourFind() {
 		FindEntityWithIdAccessor<CompanyWorkingHourEntity> companyWorkingHourFind = new FindEntityWithIdAccessor<CompanyWorkingHourEntity>();
 		companyWorkingHourFind.setIdAccessor(new WorkingHourIdAccessor<CompanyWorkingHourEntity>());
 		return companyWorkingHourFind;
 	}
-	
+
 	@Bean(name = "employeeVacationFind")
 	public FindEntityWithIdAccessor<EmployeeVacationEntity> getEmployeeVacationFind() {
 		FindEntityWithIdAccessor<EmployeeVacationEntity> employeeVacationFind = new FindEntityWithIdAccessor<EmployeeVacationEntity>();
 		employeeVacationFind.setIdAccessor(new VacationIdAccessor<EmployeeVacationEntity>());
 		return employeeVacationFind;
 	}
-	
+
 	@Bean(name = "employeeWorkingHourFind")
 	public FindEntityWithIdAccessor<EmployeeWorkingHourEntity> getEmployeeWorkingHourFind() {
 		FindEntityWithIdAccessor<EmployeeWorkingHourEntity> employeeWorkingHourFind = new FindEntityWithIdAccessor<EmployeeWorkingHourEntity>();
 		employeeWorkingHourFind.setIdAccessor(new WorkingHourIdAccessor<EmployeeWorkingHourEntity>());
 		return employeeWorkingHourFind;
-	}	
-	
+	}
+
 	@Bean(name = "emailFind")
 	public FindEntityWithIdAccessor<EmailEntity> getEmailFind() {
 		FindEntityWithIdAccessor<EmailEntity> emailFind = new FindEntityWithIdAccessor<EmailEntity>();
 		emailFind.setIdAccessor(new EmailIdAccessor());
 		return emailFind;
 	}
-	
+
 	@Bean(name = "phoneFind")
 	public FindEntityWithIdAccessor<PhoneEntity> getPhoneFind() {
 		FindEntityWithIdAccessor<PhoneEntity> phoneFind = new FindEntityWithIdAccessor<PhoneEntity>();
 		phoneFind.setIdAccessor(new PhoneIdAccessor());
 		return phoneFind;
 	}
-	
+
 	@Bean(name = "webUrlFind")
 	public FindEntityWithIdAccessor<WebUrlEntity> getWebUrlFind() {
 		FindEntityWithIdAccessor<WebUrlEntity> webUrlFind = new FindEntityWithIdAccessor<WebUrlEntity>();
